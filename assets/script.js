@@ -1,4 +1,3 @@
-// não aceitar menor de 18 ! DONE
 // não deixar email repetido// exibir modal com erro para qualquer uma acima
 
 import {
@@ -9,10 +8,10 @@ import {
 } from "./js/Filtro.js";
 
 let contadorCadastro = 1;
+const cadastro = [];
 const dia = new Date().getDate();
 const mes = new Date().getMonth();
 const ano = new Date().getFullYear();
-const cadastro = [];
 
 const btnCadastrar = document.getElementById("register-button");
 btnCadastrar.addEventListener("click", cadastrar);
@@ -29,24 +28,11 @@ function cadastrar(event) {
         const contato = form[4].value;
         const telefone = form[5].value;
         const cargo = form[6].value;
-        // && validarEmail(pessoa._email, email)
-        if (validarIdade(dataNasc)) {
-            if ((nome !== "" && sobrenome !== "" && dataNasc !== "" && email !== "") && (contato !== "" || telefone !== "")) {
-                let pessoa = new Pessoa(nome, sobrenome, dataNasc, email, contato, telefone, cargo);
-                cadastro.push(pessoa);
-                console.log(cadastro);
 
-                atualizaContador();
-                pessoa.mostrar();
-
-                event.preventDefault();
-            } else {
-                console.log("modal campos inválidos, por favor complete-os");
-            }
-        }
-
-        event.preventDefault();
+        adicionarUsuario(nome, sobrenome, dataNasc, email, contato, telefone, cargo);
     }
+
+    event.preventDefault();
 }
 
 const btnFiltrar = document.getElementById("btn");
@@ -71,21 +57,6 @@ function filtrar(event) {
     }
 }
 
-// function validarEmail(pessoa, email) {
-//     const validar = pessoa.filter(({
-//         _email
-//     }) => {
-//         _email !== email;
-//     })
-//     return validar;
-
-//     // if (pessoa !== email) {
-//     //     return true;
-//     // } else {
-//     //     console.log("modal email já cadastrado")
-//     // }
-// }
-
 function validarIdade(idade) {
     const hoje = new Date(Date.parse(`${ano}/${mes}/${dia}`));
     const dtNasc = new Date(Date.parse(idade));
@@ -99,7 +70,60 @@ function validarIdade(idade) {
     }
 }
 
+// function validarEmail(array, email) {
+//     if (array.find(email)) {
+//         return false;
+//     } else {
+//         return true;
+//     };
+// }
+
+function adicionarUsuario(nome, sobrenome, dataNasc, email, contato, telefone, cargo) {
+    if (validarIdade(dataNasc) /*&& validarEmail(pessoa.email, email)*/ ) {
+
+        let pessoa = new Pessoa(nome, sobrenome, dataNasc, email, contato, telefone, cargo);
+        if ((nome !== "" && sobrenome !== "" && dataNasc !== "" && email !== "") && (contato !== "" || telefone !== "")) {
+            // cadastro.push(pessoa);
+            console.log(pessoa);
+            console.log(pessoa.email);
+            atualizaContador();
+            pessoa.mostrar();
+        }
+    } else {
+        console.log("modal email já cadastrado");
+    }
+}
+
 function atualizaContador() {
     const total = document.getElementById("total-alunos");
     total.innerText = contadorCadastro++;
 }
+
+// function modalError(){}
+
+
+
+/*
+if (cadastro.length > 0 && validarEmail(cadastro._email, email)) {
+    if ((nome !== "" && sobrenome !== "" && dataNasc !== "" && email !== "") && (contato !== "" || telefone !== "")) {
+        let pessoa = new Pessoa(nome, sobrenome, dataNasc, email, contato, telefone, cargo);
+        cadastro.push(pessoa);
+        console.log(cadastro);
+
+        atualizaContador();
+        pessoa.mostrar();
+        event.preventDefault();
+    }
+    event.preventDefault();
+} else {
+    if ((nome !== "" && sobrenome !== "" && dataNasc !== "" && email !== "") && (contato !== "" || telefone !== "")) {
+        let pessoa = new Pessoa(nome, sobrenome, dataNasc, email, contato, telefone, cargo);
+        cadastro.push(pessoa);
+        console.log(cadastro);
+
+        atualizaContador();
+        pessoa.mostrar();
+        event.preventDefault();
+    }
+}
+*/
