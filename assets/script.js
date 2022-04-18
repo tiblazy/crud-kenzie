@@ -43,17 +43,17 @@ function filtrar(event) {
 
     if (click.id === "btn") {
         const listaPessoas = document.getElementById("lista-de-alunos").innerHTML = "";
-
         const cargoOpcao = document.getElementById("cargoOption");
         const cargoSelecionado = cargoOpcao.options[cargoOpcao.selectedIndex].innerText.toLowerCase();
-
-        // filtro...
-        // console.log(cargoOpcao);
-        // const filtro = new Filtro(Pessoa, cargoSelecionado);
+        const todosCargos = Filtro.filtrarTodos(cadastro);
+        const filtro = Filtro.filtrarPorCargo(cadastro, cargoSelecionado);
         // console.log(cargoSelecionado);
-        // console.log(filtro);
 
-        return listaPessoas;
+        if (cargoSelecionado === "todos") {
+            return todosCargos.forEach((element) => element.mostrar());
+        } else {
+            return filtro.forEach((element) => element.mostrar());
+        }
     }
 }
 
@@ -79,15 +79,16 @@ function validarEmail(array, email) {
 }
 
 function adicionarUsuario(nome, sobrenome, dataNasc, email, contato, telefone, cargo) {
-    console.log(arrayEmail)
+
     if (validarIdade(dataNasc) && validarEmail(arrayEmail, email)) {
         if ((nome !== "" && sobrenome !== "" && dataNasc !== "" && email !== "") && (contato !== "" || telefone !== "")) {
             let pessoa = new Pessoa(nome, sobrenome, dataNasc, email, contato, telefone, cargo);
-            cadastro.push(pessoa);
 
             arrayEmail.push(email);
             atualizaContador();
             pessoa.mostrar();
+
+            return cadastro.push(pessoa);
         }
     }
 }

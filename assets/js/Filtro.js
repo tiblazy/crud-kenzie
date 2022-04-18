@@ -3,14 +3,10 @@ import {
 } from "./Pessoa.js";
 
 export class Filtro {
-    static filtrarPorCargo(cadastro, cargo) {
-        const cadastroFiltrado = cadastro.filter((_cargo) => {
-            if (_cargo.toLowerCase() === cargo.toLowerCase()) {
-                console.log("aqui")
-                // return ...lista de pessoas;
-            }
-        })
-
-        return cadastroFiltrado;
+    static filtrarTodos(array) {
+        return array;
+    }
+    static filtrarPorCargo(array, cargo) {
+        return array.filter((pessoa) => pessoa._cargo.toLowerCase() === cargo.toLowerCase());
     }
 }
