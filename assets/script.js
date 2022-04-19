@@ -8,7 +8,7 @@ import {
 
 let contadorCadastro = 1;
 const arrayEmail = [];
-const cadastro = []; //??
+const cadastro = [];
 const dia = new Date().getDate();
 const mes = new Date().getMonth();
 const ano = new Date().getFullYear();
@@ -47,7 +47,6 @@ function filtrar(event) {
         const cargoSelecionado = cargoOpcao.options[cargoOpcao.selectedIndex].innerText.toLowerCase();
         const todosCargos = Filtro.filtrarTodos(cadastro);
         const filtro = Filtro.filtrarPorCargo(cadastro, cargoSelecionado);
-        // console.log(cargoSelecionado);
 
         if (cargoSelecionado === "todos") {
             return todosCargos.forEach((element) => element.mostrar());
